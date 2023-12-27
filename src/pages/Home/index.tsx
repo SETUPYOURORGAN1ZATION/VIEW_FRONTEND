@@ -1,6 +1,7 @@
 import Grass from "components/Grass";
 import DayInfo from "interfaces/DayInfo";
-import React from "react";
+import banner from "assets/banner.png";
+import * as S from "./style";
 
 const Home = () => {
   const data: DayInfo[] = [
@@ -11,12 +12,11 @@ const Home = () => {
   ];
 
   return (
-    <div>
-      <Grass
-        data={data}
-        attendColor="#0085ff"
-      />
-    </div>
+    <S.Layout>
+      <S.Banner src={banner} />
+      <S.Text>출결 현황</S.Text>
+      <Grass data={data} attendColor="#0085ff" />
+    </S.Layout>
   );
 };
 

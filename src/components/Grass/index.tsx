@@ -44,7 +44,7 @@ const Grass = ({
 
   let arr: Array<Array<string>> = [];
 
-  for (let i = 30; i >= 0; i--) {
+  for (let i = 39; i >= 0; i--) {
     let arrColumn = [];
     for (let j = 6; j >= 0; j--) {
       arrColumn.push(current.subtract(i * 7 + j, "day").format("YYYY-MM-DD"));
