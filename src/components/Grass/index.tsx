@@ -8,17 +8,17 @@ dayjs.locale("ko");
 
 interface GrassProps {
   data: DayInfo[];
-  attendColor: string;
-  absentColor: string;
-  truancyColor: string;
+  attendColor?: string;
+  absentColor?: string;
+  truancyColor?: string;
   absentClick?: () => void;
 }
 
 const Grass = ({
   data,
-  attendColor,
-  absentColor,
-  truancyColor,
+  attendColor = "#ececf0",
+  absentColor = "#ececf0",
+  truancyColor = "#ececf0",
   absentClick,
 }: GrassProps) => {
   const current = dayjs();

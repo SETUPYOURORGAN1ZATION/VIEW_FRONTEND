@@ -15,8 +15,6 @@ const Home = () => {
       <Grass
         data={data}
         attendColor="#0085ff"
-        absentColor="#ffe500"
-        truancyColor="#e54f5a"
       />
     </div>
   );
