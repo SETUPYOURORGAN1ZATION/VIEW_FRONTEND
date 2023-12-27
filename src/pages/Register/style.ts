@@ -4,7 +4,6 @@ import font from "styles/font";
 export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  /* */
   padding-top: 40px;
   display: flex;
   flex-direction: column;
