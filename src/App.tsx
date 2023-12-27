@@ -8,12 +8,14 @@ import {
   Login,
   SignUp,
 } from "pages";
+import Header from "components/Header";
 import styled from "styled-components";
 
 function App() {
   return (
-    <Container>
-      <Router>
+    <Router>
+      <Header />
+      <Container>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
@@ -22,8 +24,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/siginup" element={<SignUp />} />
         </Routes>
-      </Router>
-    </Container>
+      </Container>
+    </Router>
   );
 }
 
