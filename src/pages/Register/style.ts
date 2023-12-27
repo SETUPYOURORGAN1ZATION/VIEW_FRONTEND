@@ -136,3 +136,29 @@ export const RegisterUpdateModalItem = styled.div`
     background-color: #aaa;
   }
 `;
+
+export const RegisterListItemInputBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  /* background-color: green; */
+`;
+
+export const RegisterListItemInput = styled.input`
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 100%;
+  height: 22px;
+`;
+
+export const RegisterListItemInputButton = styled.button`
+  width: 60px;
+  height: 22px;
+  ${font.p4};
+  border: none;
+  background-color: #0285ff;
+  color: white;
+  border-radius: 999px;
+  cursor: pointer;
+`;
