@@ -2,37 +2,15 @@ import Grass from "components/Grass";
 import DayInfo from "interfaces/DayInfo";
 import banner from "assets/banner.png";
 import * as S from "./style";
-import { useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { supabase } from "apis";
 
-const data: DayInfo[] = [
-  { date: "2023-09-02", status: "TRUANCY", description: null },
-  { date: "2023-09-03", status: "ATTENDANCE", description: null },
-  { date: "2023-09-04", status: "ATTENDANCE", description: null },
-  { date: "2023-09-08", status: "ATTENDANCE", description: null },
-  { date: "2023-10-06", status: "ABSENT", description: "배고파서" },
-  { date: "2023-12-10", status: "ATTENDANCE", description: null },
-  { date: "2023-12-09", status: "ATTENDANCE", description: null },
-  { date: "2023-12-17", status: "ATTENDANCE", description: null },
-  { date: "2023-12-13", status: "ATTENDANCE", description: null },
-  { date: "2023-12-13", status: "ATTENDANCE", description: null },
-  { date: "2023-12-14", status: "ATTENDANCE", description: null },
-  { date: "2023-12-15", status: "ATTENDANCE", description: null },
-  { date: "2023-12-16", status: "ATTENDANCE", description: null },
-  { date: "2023-12-18", status: "ATTENDANCE", description: null },
-  { date: "2023-12-19", status: "ATTENDANCE", description: null },
-  { date: "2023-12-20", status: "ATTENDANCE", description: null },
-  { date: "2023-12-21", status: "ATTENDANCE", description: null },
-  { date: "2023-12-22", status: "ATTENDANCE", description: null },
-  { date: "2023-12-23", status: "ATTENDANCE", description: null },
-  { date: "2023-12-25", status: "ATTENDANCE", description: null },
-  { date: "2023-12-26", status: "ATTENDANCE", description: null },
-  { date: "2023-12-27", status: "ATTENDANCE", description: null },
-  { date: "2023-12-28", status: "ATTENDANCE", description: null },
-];
-
 const Home = () => {
-  const student = JSON.parse(localStorage.getItem("student") ?? "false");
+  const student = useMemo(
+    () => JSON.parse(localStorage.getItem("student") ?? "false"),
+    [],
+  );
+  const [studentData, setStudentData] = useState<DayInfo[]>();
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
 
@@ -50,6 +28,33 @@ const Home = () => {
     setDate("");
   };
 
+  useEffect(() => {
+    if (student) {
+      (async () => {
+        try {
+          const { data } = await supabase.from("Register").select();
+          console.log(data);
+          setStudentData(
+            data
+              ?.filter((item) => item.studentNumber === student.studentId)
+              ?.map((a) => ({
+                date: `${parseInt(a.checkedDate.slice(0, 4)) + 1}-${a.checkedDate.slice(
+                  6,
+                  8,
+                )}-${a.checkedDate.slice(9, 11)}`,
+                status: a.status,
+                description: a.description,
+              })),
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    }
+  }, [student]);
+
+  console.log(studentData);
+
   return (
     <S.Layout>
       <S.Banner src={banner} />
@@ -60,7 +65,7 @@ const Home = () => {
       )}
       <S.Name>{student.name ? `${student.name}님` : "로그인하세요"}</S.Name>
       <S.Text>출결 현황</S.Text>
-      <Grass data={data} attendColor="#0085ff" />
+      <Grass data={studentData ? studentData : []} attendColor="#0085ff" />
       <S.Box>
         <S.PassTicketBox>
           <S.PassTicketMainText>이석증 발급하기</S.PassTicketMainText>
