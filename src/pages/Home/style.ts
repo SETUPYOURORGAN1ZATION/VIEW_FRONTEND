@@ -29,7 +29,7 @@ export const Name = styled.div`
   top: 25%;
   left: 15%;
   color: white;
-  ${font.D2}
+  ${font.D3}
 `;
 
 export const Text = styled.div`
@@ -84,6 +84,7 @@ export const ReasonArea = styled.textarea`
   height: 100%;
   border: none;
   resize: none;
+  outline: none;
   padding: 2.5% 3.5%;
   font-size: 1.2rem;
   border-radius: 5px;
@@ -93,7 +94,7 @@ export const ReasonArea = styled.textarea`
 export const DateAndSubmitBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 45px;
+  gap: 40px;
   width: 35%;
   height: 30%;
 `;
@@ -112,6 +113,7 @@ export const DateInput = styled.input`
   border: none;
   font-size: 1.2rem;
   background-color: transparent;
+  outline: none;
 `;
 
 export const SubmitButton = styled.div`
@@ -121,7 +123,8 @@ export const SubmitButton = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: rgba(0, 133, 255, 0.5);
+  background-color: #0085ff;
+  cursor: pointer;
 `;
 
 export const TodayAttendBox = styled.div`

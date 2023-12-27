@@ -52,13 +52,17 @@ const Grass = ({
     arr.push(arrColumn);
   }
 
+  console.log(arr);
+
   return (
     <S.Layout>
       {arr.map((column: string[], colIndex) => (
         <S.ColumnBox key={colIndex}>
           {column.map((day, rowIndex) => (
             <S.Block
-              onClick={dataStauts[day] === "ABSENT" ? absentClick : function(){}}
+              onClick={
+                dataStauts[day] === "ABSENT" ? absentClick : function () {}
+              }
               color={findColor(dataStauts[day])}
               key={rowIndex}
             />
