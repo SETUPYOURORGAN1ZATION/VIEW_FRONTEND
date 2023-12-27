@@ -52,8 +52,6 @@ const Grass = ({
     arr.push(arrColumn);
   }
 
-  console.log(arr);
-
   return (
     <S.Layout>
       {arr.map((column: string[], colIndex) => (
