@@ -4,7 +4,6 @@ import font from "styles/font";
 export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  /* */
   padding-top: 40px;
   display: flex;
   flex-direction: column;
@@ -99,6 +98,7 @@ export const StatusUpdateButton = styled.span`
   font-size: 12px;
   color: #999;
   margin-left: auto;
+  cursor: pointer;
 `;
 
 export const RegisterListItemContent = styled.span`
@@ -109,4 +109,30 @@ export const RegisterListItemContent = styled.span`
 export const RegisterListItemDescription = styled.span`
   ${font.p3};
   color: #aaa;
+`;
+
+export const RegisterUpdateModal = styled.div`
+  display: flex;
+  gap: 4px;
+  margin-bottom: 100px;
+  position: absolute;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const RegisterUpdateModalItem = styled.div`
+  cursor: pointer;
+  width: 90px;
+  height: 100%;
+  padding: 6px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${font.p3};
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: #aaa;
+  }
 `;

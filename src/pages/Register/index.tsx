@@ -15,14 +15,34 @@ const mocks = [
     })),
   },
   {
-    grade: 2,
-    classNum: 2,
-    list: Array.from({ length: 16 }).map(() => ({
-      status: "ATTENDANCE",
-      studentNumber: "2210",
-      studentName: "박우빈",
-      description: "",
-    })),
+    grade: 1,
+    classNum: 1,
+    list: [
+      {
+        status: "ATTENDANCE",
+        studentNumber: "2210",
+        studentName: "박우빈",
+        description: "",
+      },
+      {
+        status: "ATTENDANCE",
+        studentNumber: "2211",
+        studentName: "배유정",
+        description: "",
+      },
+      {
+        status: "ATTENDANCE",
+        studentNumber: "2212",
+        studentName: "백서진",
+        description: "",
+      },
+      {
+        status: "ATTENDANCE",
+        studentNumber: "2213",
+        studentName: "유성욱",
+        description: "",
+      },
+    ],
   },
   {
     grade: 2,
@@ -47,6 +67,7 @@ const mocks = [
 ];
 
 const Register = () => {
+  const [isHoverUpdateModal, setIsHoverUpdateModal] = useState("");
   const [currGrade, setCurrGrade] = useState("1학년");
   const [currClass, setCurrClass] = useState("1반");
   const isCurrRegister = (grade: number, classNum: number) =>
@@ -57,7 +78,6 @@ const Register = () => {
 
   return (
     <S.Container>
-      출결현황
       <S.PageTitle>🗓️ 2023년 12월 27일</S.PageTitle>
       <S.List>
         <Retry />
@@ -96,7 +116,26 @@ const Register = () => {
                       }
                     })()}
                   </S.StatusTitle>
-                  <S.StatusUpdateButton>상태 변경</S.StatusUpdateButton>
+                  <S.StatusUpdateButton
+                    onClick={() =>
+                      setIsHoverUpdateModal(register.studentNumber)
+                    }
+                  >
+                    상태 변경
+                  </S.StatusUpdateButton>
+                  {isHoverUpdateModal === register.studentNumber && (
+                    <S.RegisterUpdateModal>
+                      {["출석 완료", "미인정 결석", "인정 결석"].map(
+                        (registerType) => (
+                          <S.RegisterUpdateModalItem
+                            onClick={() => setIsHoverUpdateModal("")}
+                          >
+                            {registerType}
+                          </S.RegisterUpdateModalItem>
+                        )
+                      )}
+                    </S.RegisterUpdateModal>
+                  )}
                 </S.RegisterListItemHead>
                 <S.RegisterListItemContent>
                   {register.studentNumber} {register.studentName}

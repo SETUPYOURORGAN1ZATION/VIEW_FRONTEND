@@ -6,14 +6,14 @@ export const Layout = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 60px;
   padding: 0 12vw;
   border-bottom: 1px solid #f2f3f7;
 `;
 
 export const Logo = styled(Link)`
-  ${font.H1}
-  color: #0085FF;
+  ${font.H2};
+  color: #0085ff;
   text-decoration: none;
 `;
 
@@ -21,7 +21,7 @@ export const FrontLayout = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
-  gap: 70px;
+  gap: 50px;
 `;
 
 export const Route = styled(Link)`
