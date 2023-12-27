@@ -22,7 +22,7 @@ function App() {
           <Route path="/register/:studentId" element={<StudentRegister />} />
           <Route path="/passticket" element={<PassTicket />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/siginup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Container>
     </Router>
