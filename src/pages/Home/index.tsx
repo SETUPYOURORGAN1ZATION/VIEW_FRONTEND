@@ -34,7 +34,6 @@ const Home = () => {
       (async () => {
         try {
           const { data } = await supabase.from("Register").select();
-          console.log(data);
           setStudentData(
             data
               ?.filter((item) => item.studentNumber === student.studentId)
@@ -50,8 +49,6 @@ const Home = () => {
       })();
     }
   }, [student]);
-
-  console.log(studentData);
 
   return (
     <S.Layout>
