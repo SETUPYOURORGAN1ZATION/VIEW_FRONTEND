@@ -77,11 +77,11 @@ const Register = () => {
         <S.ArrowBox>
           <S.UpArrow
             src={upArrow}
-            onClick={() => setDate(date.add(1, "day"))}
+            onClick={() => date.date() <= 27 && setDate(date.add(1, "day"))}
           />
           <S.DownArrow
             src={downArrow}
-            onClick={() => setDate(date.subtract(1, "day"))}
+            onClick={() => date.date() >= 28 && setDate(date.subtract(1, "day"))}
           />
         </S.ArrowBox>
       </S.PageTitle>
