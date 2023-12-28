@@ -16,11 +16,9 @@ const Header = () => {
     <S.Layout>
       <S.FrontLayout>
         <S.Logo to="/">VIEW</S.Logo>
-        <S.Route to="/">홈</S.Route>
-        {localStorage.getItem("mode") === "t" && (
-          <S.Route to="/register">출결 현황</S.Route>
-        )}
-        {localStorage.getItem("mode") === "t" && (
+        {state.name !== "전영현" && <S.Route to="/">홈</S.Route>}
+        {state.name !== "전영현" && <S.Route to="/register">출결 현황</S.Route>}
+        {state.name !== "전영현" && (
           <S.Route to="/passticket">이석증 신청 목록</S.Route>
         )}
       </S.FrontLayout>
