@@ -11,8 +11,26 @@ export const Container = styled.div`
 `;
 
 export const PageTitle = styled.h1`
+  display: flex;
+  gap: 7.5px;
+  align-items: center;
   ${font.H2};
 `;
+
+export const ArrowBox = styled.div`
+  display: flex;
+  gap: 2.5px;
+  flex-direction: column;
+`
+
+export const UpArrow = styled.img`
+  width: 15px;
+  cursor: pointer;
+`
+
+export const DownArrow = styled(UpArrow)`
+  transform: rotate(180deg)
+`
 
 export const List = styled.ul`
   list-style: none;

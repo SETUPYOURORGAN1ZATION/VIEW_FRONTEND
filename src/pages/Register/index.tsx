@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import DropDown from "components/DropDown";
 import Retry from "components/Retry";
+import upArrow from "assets/upArrow.svg";
+import downArrow from "assets/upArrow.svg";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import getDateFormat from "helper/getDateFormat";
 import { supabase } from "apis";
+
+dayjs.locale("ko");
 
 const Register = () => {
   const [isHoverUpdateModal, setIsHoverUpdateModal] = useState("");
@@ -10,55 +17,74 @@ const Register = () => {
   const [content, setContent] = useState("");
   const [currGrade, setCurrGrade] = useState("1학년");
   const [currClass, setCurrClass] = useState("1반");
+  const [date, setDate] = useState(dayjs());
   const [register, setRegister] = useState<any>();
   const isCurrRegister = (grade: number, classNum: number) =>
     grade === +currGrade[0] && classNum === +currClass[0];
   const filteredDataList = register?.filter(({ studentNumber }: any) =>
-    isCurrRegister(+studentNumber[0], +studentNumber[1])
+    isCurrRegister(+studentNumber[0], +studentNumber[1]),
   );
 
+  const getRegister = async () => {
+    const { data } = await supabase
+      .from("Register")
+      .select()
+      .order("studentNumber")
+      .eq("checkedDate", date.subtract(1, "year").format("YYYY년 MM월DD일"));
+    setRegister(
+      data?.map((item: any) => ({
+        ...item,
+        checkedDate: getDateFormat(item.checkedDate),
+      })),
+    );
+  };
+
   useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from("Register")
-        .select()
-        .order("studentNumber");
-      setRegister(data);
-    })();
-  }, []);
+    getRegister();
+  }, [date]);
 
   const handleStatusUpdate = async (studentNumber: string, status: string) => {
     await supabase
       .from("Register")
       .update({ status })
-      .eq("studentNumber", studentNumber);
+      .match({
+        studentNumber,
+        checkedDate: date.subtract(1, "year").format("YYYY년 MM월DD일"),
+      });
 
-    const { data } = await supabase
-      .from("Register")
-      .select()
-      .order("studentNumber");
-    setRegister(data);
+    getRegister();
   };
 
   const handleUpdateDescription = async (
     studentNumber: string,
-    description: string
+    description: string,
   ) => {
     await supabase
       .from("Register")
       .update({ description })
-      .eq("studentNumber", studentNumber);
+      .match({
+        studentNumber,
+        checkedDate: date.subtract(1, "year").format("YYYY년 MM월DD일"),
+      });
 
-    const { data } = await supabase
-      .from("Register")
-      .select()
-      .order("studentNumber");
-    setRegister(data);
+    getRegister();
   };
 
   return (
     <S.Container>
-      <S.PageTitle>🗓️ 2023년 12월 27일</S.PageTitle>
+      <S.PageTitle>
+        🗓️ {date.year()}년 {date.month() + 1}월 {date.date()}일
+        <S.ArrowBox>
+          <S.UpArrow
+            src={upArrow}
+            onClick={() => setDate(date.add(1, "day"))}
+          />
+          <S.DownArrow
+            src={downArrow}
+            onClick={() => setDate(date.subtract(1, "day"))}
+          />
+        </S.ArrowBox>
+      </S.PageTitle>
       <S.List>
         <Retry />
         <DropDown
@@ -120,7 +146,7 @@ const Register = () => {
                             {registerType}
                           </S.RegisterUpdateModalItem>
                         );
-                      }
+                      },
                     )}
                   </S.RegisterUpdateModal>
                 )}
@@ -150,7 +176,7 @@ const Register = () => {
                         setIsEditMode("");
                         handleUpdateDescription(
                           register.studentNumber,
-                          content
+                          content,
                         );
                       }}
                     >
