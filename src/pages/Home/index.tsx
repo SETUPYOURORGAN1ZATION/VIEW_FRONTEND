@@ -4,6 +4,7 @@ import banner from "assets/banner.png";
 import * as S from "./style";
 import { useMemo, useEffect, useState } from "react";
 import { supabase } from "apis";
+import getDateFormat from "helper/getDateFormat";
 
 const Home = () => {
   const student = useMemo(
@@ -38,10 +39,7 @@ const Home = () => {
             data
               ?.filter((item) => item.studentNumber === student.studentId)
               ?.map((a) => ({
-                date: `${parseInt(a.checkedDate.slice(0, 4)) + 1}-${a.checkedDate.slice(
-                  6,
-                  8,
-                )}-${a.checkedDate.slice(9, 11)}`,
+                date: getDateFormat(a.checkedDate),
                 status: a.status,
                 description: a.description,
               })),
